@@ -1,0 +1,23 @@
+<div class="content">
+    <ng-container *ngIf="service.user | async">
+        <button mat-raised-button color="primary" (click)="addNews()">Добавить новость</button>
+    </ng-container>
+    <ng-container *ngFor="let item of newsList | async">
+        <mat-card>
+            <mat-card-title>{{item.caption}}</mat-card-title>
+            <mat-card-subtitle>{{item.date}} {{item.authorname}}</mat-card-subtitle>
+            <mat-card-content>{{item.text.substr(0,100)}}</mat-card-content>
+            <mat-card-actions>
+                <div class="buttons" *ngIf="item.author && item.author == service.author; else readonly">
+                    <mat-icon (click)="editNews(item.id)">edit</mat-icon>
+                    <mat-icon (click)="deleteNews(item.id)">delete</mat-icon>                    
+                </div>
+                <ng-template #readonly>
+                    <div class="buttons">
+                        <mat-icon (click)="readNews(item.id)">more_horiz</mat-icon>
+                    </div>
+                </ng-template>
+            </mat-card-actions>
+        </mat-card>
+    </ng-container>
+</div>

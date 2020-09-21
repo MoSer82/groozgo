@@ -1,0 +1,17 @@
+<div class="caption">
+    <h2 *ngIf="type == 'create'">Создание новости</h2>
+    <h2 *ngIf="edit && type != 'create'">Редактирование новости</h2>
+</div>
+<form [formGroup]="form">
+    <label for="caption" *ngIf="edit">Заголовок</label>
+    <input type="text" name="caption" id="caption" matInput formControlName="caption">
+    <mat-error *ngIf="form.get('caption').invalid && form.get('caption').touched">Обязательно для заполнения</mat-error>
+    <div class="subcaption" *ngIf="!edit">
+        {{item.date}} {{item.authorname}}
+    </div>
+    <label for="text" *ngIf="edit">Содержание новости</label>
+    <textarea name="text" id="text" rows="8" formControlName="text"></textarea>
+    <mat-error *ngIf="form.get('text').invalid && form.get('text').touched">Обязательно для заполнения</mat-error>
+    <button mat-raised-button (click)="addNews()" color="primary" *ngIf="type == 'create'">Добавить новость</button>
+    <button mat-raised-button color="primary" (click)="saveNews()" *ngIf="edit && type != 'create'">Сохранить новость</button>
+</form>

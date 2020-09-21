@@ -1,0 +1,11 @@
+<mat-toolbar>
+    <div *ngIf="service.user | async as user; else notLogin">
+        {{ user.displayName }}
+        <button mat-button (click)="service.logout()">Выйти</button>
+    </div>
+    <ng-template #notLogin>
+        <div>
+            <button mat-button (click)="service.login()">Войти</button>
+        </div>
+    </ng-template>
+</mat-toolbar>
